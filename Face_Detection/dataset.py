@@ -3,15 +3,19 @@ import os
 import time
 
 haar_file = "haarcascade_frontalface_default.xml"
-
-datasets = 'C:\\Users\\sa319\\OneDrive\\Desktop\\coding\\python\\workshop\\Face_Detection\\Dataset\\'
+datasets = 'C:\\Users\\sa319\\OneDrive\\Desktop\\coding\\python\\workshop\\Face_Detection\\'
 
 name = input("Enter your name: ")
+
+if not os.path.isdir(datasets + "Dataset"):
+    os.mkdir(datasets + "Dataset")
+
+datasets += "Dataset\\"
 
 path = os.path.join(datasets, name)
 if not os.path.isdir(path):
     os.mkdir(path)
-
+    
 face_cascade = cv2.CascadeClassifier(haar_file)
 
 cap = cv2.VideoCapture(0)
