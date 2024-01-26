@@ -1,0 +1,9 @@
+streamlit
+st_pages
+cvzone
+opencv-contrib-python
+opencv-python
+ultralytics
+datetime
+numpy
+pandas
