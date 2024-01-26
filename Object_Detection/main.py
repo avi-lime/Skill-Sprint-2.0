@@ -1,6 +1,9 @@
 import cv2
 from ultralytics import YOLO
+import streamlit as st
+from st_pages import add_page_title
 
+add_page_title()
 # loading model
 model = YOLO('yolov8n.pt')
 
@@ -9,8 +12,13 @@ path = 'sample.mp4'
 # change path to input custom video
 
 # read frames
-cap = cv2.VideoCapture(path)
+cap = cv2.VideoCapture(0)
+cap.set(3, 1280)
+cap.set(4, 720)
 # replace 'path' with 0 to capture webcam
+
+frame_holder = st.empty()
+stop_pressed_status = st.button("Stop")
 
 ret = True
 while ret:
@@ -24,8 +32,8 @@ while ret:
         frame_ = result[0].plot()
 
         # visualize
-        cv2.imshow('frame', frame_)
-        if cv2.waitKey(1) == ord('q'):
+        frame_holder.image(frame_, channels="BGR")
+        if cv2.waitKey(1) & 0xFF == ord('q') or stop_pressed_status:
             break
 
 cap.release()

@@ -3,17 +3,24 @@ import os
 import numpy as np
 import time
 import datetime as dt
+import streamlit as st
+from st_pages import add_page_title
+
+add_page_title()
 
 # data for the face recognition
-haar_file = "haarcascade_frontalface_default.xml"
+haar_file = "C:\\Users\\sa319\\OneDrive\\Documents\\GitHub\\Skill-Sprint-2.0\\Face_Detection\\haarcascade_frontalface_default.xml"
+
 datasets = 'C:\\Users\\sa319\\OneDrive\\Desktop\\coding\\python\\workshop\\Face_Detection\\Dataset\\'
 (images, labels, names, id) = ([], [], {}, 0)
 
 # check if any datasets are available
 if not os.path.isdir(datasets):
-    print("Please run the dataset.py file first")
+    st.write("Please Enter your face in the Dataset")
     exit()
 
+# frame
+frame_placeholder = st.empty()
 
 # walk through all the datasets and load them in images, labels, names and id
 for (subdirs, dirs, files) in os.walk(datasets):
@@ -39,7 +46,8 @@ face_cascade = cv2.CascadeClassifier(haar_file)
 
 # webcam
 cap = cv2.VideoCapture(0)
-
+cap.set(3, 1280)
+cap.set(4, 720)
 print("Web cam is open?", cap.isOpened())
 
 time.sleep(2)
@@ -82,7 +90,8 @@ while True:
         # Date and Time on top left
         cv2.putText(frame, dt.datetime.now().strftime("%d/%m/%Y %H:%M:%S"), (20, 20), cv2.FONT_HERSHEY_DUPLEX,
                     0.7, (255, 0, 0), 2)
-        cv2.imshow("Face Recognition", frame)
+        frame_placeholder.image(frame, channels="BGR")
+        # cv2.imshow("Face Recognition", frame)
         if cv2.waitKey(1) == ord("q"):
             break
 
