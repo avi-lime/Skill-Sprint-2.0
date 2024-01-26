@@ -7,3 +7,4 @@ ultralytics
 datetime
 numpy
 pandas
+streamlit_webrtc

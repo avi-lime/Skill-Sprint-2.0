@@ -2,6 +2,15 @@ import cv2
 from ultralytics import YOLO
 import streamlit as st
 from st_pages import add_page_title
+from streamlit_webrtc import webrtc_streamer
+
+webrtc_streamer(
+    # ...
+    rtc_configuration={  # Add this config
+        "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
+    }
+    # ...
+)
 
 add_page_title()
 # loading model
